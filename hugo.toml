@@ -1,0 +1,70 @@
+baseURL = 'https://qcheng19.github.io/'
+title = 'qcheng19'
+theme = 'hugo-book'
+copyright = '© 2026 qcheng19'
+
+# 禁用路径自动小写（中文友好）
+disablePathToLower = true
+
+# 开启 RSS
+[outputs]
+  home = ['html', 'rss']
+  page = ['html']
+  section = ['html']
+
+# Markdown 配置
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+  [markup.highlight]
+    style = 'monokai'
+
+# 菜单
+[menu]
+[[menu.after]]
+  name = '首页'
+  url = '/'
+  weight = 1
+
+[[menu.after]]
+  name = '博客'
+  pageRef = '/posts'
+  weight = 2
+
+[[menu.after]]
+  name = '标签'
+  pageRef = '/tags'
+  weight = 3
+
+[[menu.after]]
+  name = '归档'
+  pageRef = '/archives'
+  weight = 4
+
+[[menu.after]]
+  name = '关于'
+  pageRef = '/about'
+  weight = 5
+
+[[menu.after]]
+  name = 'GitHub'
+  url = 'https://github.com/qcheng19'
+  weight = 6
+
+[params]
+  # 主题配色: light / dark / auto
+  BookTheme = 'auto'
+
+  # 博客文章作为主内容区
+  BookSection = 'posts'
+
+  # 开启搜索
+  BookSearch = true
+
+  # 关闭评论（需要时再开启）
+  # BookComments = true
+
+  # 日期格式
+  BookDateFormat = '2006-01-02'

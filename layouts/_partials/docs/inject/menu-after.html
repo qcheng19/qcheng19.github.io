@@ -1,0 +1,53 @@
+<div class="book-github-card">
+  <div class="book-github-card-inner">
+    <div class="book-github-card-header">
+      <img
+        class="book-github-avatar"
+        src="https://github.com/qcheng19.png"
+        alt="avatar"
+        width="40" height="40"
+        loading="lazy"
+      />
+      <span class="book-github-name">qcheng19</span>
+    </div>
+    <div class="book-github-card-stats">
+      {{- $posts := where .Site.RegularPages "Section" "posts" -}}
+      {{- $total := len $posts -}}
+      {{- $now := now -}}
+      {{- $thisMonth := where $posts "Date.Month" $now.Month -}}
+      {{- $thisMonth := where $thisMonth "Date.Year" $now.Year -}}
+      {{- $weekAgo := $now.AddDate 0 0 -7 -}}
+      {{- $thisWeek := where $posts "Date" "ge" $weekAgo -}}
+      <span class="book-github-stat">
+        <span class="book-github-stat-num">{{ $total }}</span>
+        <span class="book-github-stat-label">文章</span>
+      </span>
+      <span class="book-github-stat">
+        <span class="book-github-stat-num">{{ len $thisMonth }}</span>
+        <span class="book-github-stat-label">本月</span>
+      </span>
+      <span class="book-github-stat">
+        <span class="book-github-stat-num">{{ len $thisWeek }}</span>
+        <span class="book-github-stat-label">本周</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+{{- if .Site.Taxonomies.tags -}}
+<div class="book-sidebar-tags">
+  <div class="book-sidebar-tags-inner">
+    <div class="book-sidebar-tags-header">
+      <span>标签</span>
+    </div>
+    <div class="book-sidebar-tags-cloud">
+      {{- range .Site.Taxonomies.tags.Alphabetical -}}
+      {{- $idx := mod (len .Page.Title) 6 -}}
+      <a href="{{ .Page.RelPermalink }}" class="book-sidebar-tag-link book-sidebar-tag-c{{ $idx }}">
+        {{ .Page.Title }}<span class="book-sidebar-tag-count">{{ .Count }}</span>
+      </a>
+      {{- end -}}
+    </div>
+  </div>
+</div>
+{{- end -}}

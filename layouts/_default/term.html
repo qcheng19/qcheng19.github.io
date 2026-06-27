@@ -1,0 +1,86 @@
+{{ define "main" }}
+  <h1>
+    {{- .Title -}}
+    <small style="color: var(--gray-500); font-weight: 400; font-size: 0.8em; margin-inline-start: 0.5rem;">
+      {{ len .Pages }} 篇
+    </small>
+  </h1>
+  {{ range (.Paginator.Pages.ByDate.Reverse) }}
+  <article class="markdown book-post">
+    {{- /* Cover image at top of card */ -}}
+    {{- with .Params.cover -}}
+    <div class="book-post-cover">
+      <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" />
+    </div>
+    {{- end -}}
+
+    {{- /* Title */ -}}
+    <h2>
+      <a href="{{ .RelPermalink }}">{{ partial "docs/title" . }}</a>
+    </h2>
+
+    {{- /* Compact meta line: date · word count · categories · tags */ -}}
+    <div class="book-post-meta-line">
+      {{- with .Date -}}
+      <span class="book-post-date">
+        <img src="{{ partial "docs/icon" "calendar" }}" class="book-icon" alt="Date" />
+        <span>{{ partial "docs/date" (dict "Date" . "Format" $.Site.Params.BookDateFormat) }}</span>
+      </span>
+      {{- end -}}
+
+      {{- if .WordCount -}}
+      <span class="book-post-meta-sep">·</span>
+      <span class="book-post-meta-extra">{{ .WordCount }} 字 / 约 {{ .ReadingTime }} 分钟</span>
+      {{- end -}}
+
+      {{- with .GetTerms "categories" -}}
+        {{- range . -}}
+        <span class="book-post-meta-sep">·</span>
+        <span class="text-small"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span>
+        {{- end -}}
+      {{- end -}}
+
+      {{- with .GetTerms "tags" -}}
+        {{- range . -}}
+        <span class="book-post-meta-sep">·</span>
+        <span class="text-small"><a href="{{ .RelPermalink }}">#{{ .Title }}</a></span>
+        {{- end -}}
+      {{- end -}}
+    </div>
+
+    {{- /* Content: text + optional small thumbnail */ -}}
+    <div class="book-post-container flex gap">
+      <div>
+        <div class="book-post-content markdown-inner">
+          {{- with .Description -}}
+            {{- . | truncate 180 -}}
+          {{- else -}}
+            {{- .Summary | plainify | truncate 180 -}}
+          {{- end -}}
+        </div>
+        <a href="{{ .RelPermalink }}" class="book-post-readmore">继续阅读</a>
+      </div>
+      {{- $thumb := default "thumbnail.*" .Params.BookPostThumbnail -}}
+      {{- with or (.Resources.GetMatch $thumb) (resources.GetMatch $thumb) -}}
+      <div class="book-post-thumb">
+        <img src="{{ .RelPermalink }}" alt="thumbnail" loading="lazy" />
+      </div>
+      {{- end -}}
+    </div>
+  </article>
+  {{ end }}
+
+  {{ partial "pagination.html" . }}
+{{ end }}
+
+{{ define "toc-container" }}
+<aside class="book-toc">
+  <div class="book-toc-content">
+    {{ template "toc" . }}
+  </div>
+</aside>
+{{ end }}
+
+{{ define "toc" }}
+  {{ partial "docs/taxonomy" . }}
+{{ end }}

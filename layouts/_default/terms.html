@@ -1,0 +1,31 @@
+{{ define "main" }}
+<article class="markdown book-post">
+  <h1>{{ .Title }}</h1>
+  <div class="book-post-content">
+    <p>共 {{ len .Data.Terms }} 个标签</p>
+    <div class="book-tag-cloud">
+    {{ range .Data.Terms.Alphabetical }}
+      <div class="book-tag-item">
+        <a href="{{ .Page.RelPermalink }}" class="book-tag-link">
+          <span class="book-tag-name">{{ .Page.Title }}</span>
+          <span class="book-tag-count">{{ .Count }}</span>
+        </a>
+      </div>
+    {{ end }}
+    </div>
+  </div>
+</article>
+{{ end }}
+
+{{ define "toc-container" }}
+<aside class="book-toc">
+  <div class="book-toc-content">
+    {{ template "toc" . }}
+  </div>
+</aside>
+{{ end }}
+
+{{ define "toc" }}
+  {{ partial "docs/toc" . }}
+{{ end }}
+
