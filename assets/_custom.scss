@@ -711,6 +711,173 @@ html:root {
 }
 
 
+// ---- Markdown Content Color Enhancement ----
+.book-post-content.markdown-inner,
+.markdown.book-article {
+
+  // Headings — gradient of accent colors
+  h1 {
+    color: var(--color-accent-default);
+    border-bottom: 2px solid var(--color-accent-default-tint);
+    padding-bottom: 0.35rem;
+  }
+
+  h2 {
+    color: var(--color-accent-note);
+    border-left: 4px solid var(--color-accent-note);
+    padding-left: 0.75rem;
+  }
+
+  h3 {
+    color: var(--color-accent-tip);
+  }
+
+  h4 {
+    color: var(--color-accent-important);
+  }
+
+  h5 {
+    color: var(--color-accent-warning);
+  }
+
+  h6 {
+    color: var(--color-accent-caution);
+  }
+
+  // Blockquote — colored accent border with tinted bg
+  blockquote {
+    border-inline-start: 4px solid var(--color-accent-default);
+    background: var(--color-accent-default-tint);
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+
+    p {
+      color: var(--body-font-color);
+    }
+  }
+
+  // Inline code — colored background
+  code {
+    color: var(--color-accent-caution);
+    background: var(--color-accent-caution-tint);
+    border-color: transparent;
+    font-weight: 500;
+  }
+
+  // Code blocks — keep clean, subtle border
+  pre {
+    border-left: 3px solid var(--color-accent-default);
+    border-radius: 0 8px 8px 0;
+
+    code {
+      color: inherit;
+      background: none;
+      font-weight: inherit;
+    }
+  }
+
+  // Tables — colored header
+  table {
+    tr th {
+      background: var(--color-accent-default-tint);
+      color: var(--color-accent-default);
+      font-weight: 600;
+      border-color: var(--color-accent-default);
+    }
+
+    tr td {
+      border-color: var(--gray-200);
+    }
+
+    tr:nth-child(2n) {
+      background: var(--gray-100);
+    }
+  }
+
+  // Horizontal rule — gradient
+  hr {
+    height: 2px;
+    border: none;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-accent-default) 20%,
+      var(--color-accent-important) 80%,
+      transparent
+    );
+  }
+
+  // List markers — colored bullets
+  ul {
+    list-style: none;
+    padding-inline-start: 1.25rem;
+
+    > li::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent-default);
+      margin-inline-end: 0.6rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    ul > li::before {
+      background: var(--color-accent-note);
+      width: 5px;
+      height: 5px;
+    }
+
+    ul ul > li::before {
+      background: var(--color-accent-important);
+      width: 4px;
+      height: 4px;
+    }
+  }
+
+  ol {
+    padding-inline-start: 1.5rem;
+
+    > li::marker {
+      color: var(--color-accent-default);
+      font-weight: 600;
+    }
+  }
+
+  // Bold text — subtle color warmth
+  strong {
+    color: var(--color-accent-important);
+  }
+
+  // Links inside content
+  a[href] {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-default-tint);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+
+    &:hover {
+      text-decoration-color: var(--color-link);
+    }
+  }
+
+  // Details/summary
+  details {
+    border-color: var(--color-accent-default);
+    border-radius: 8px;
+
+    summary {
+      color: var(--color-accent-default);
+      font-weight: 500;
+    }
+  }
+}
+
+
 // ---- 8. Pinned Post Badge ----
 .book-post-pinned {
   display: inline-block;
