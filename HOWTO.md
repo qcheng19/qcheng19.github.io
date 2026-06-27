@@ -104,3 +104,31 @@ git diff
 git pull --rebase origin main
 git push
 ```
+
+---
+
+## 5. 克隆到另一台电脑
+
+本仓库使用 **SSH** 方式连接 GitHub（HTTPS 被墙，连不上）：
+
+```bash
+git clone git@github.com:qcheng19/qcheng19.github.io.git
+cd qcheng19.github.io
+```
+
+> 新电脑需先[配置 SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) 并加到 GitHub 账号里。
+
+---
+
+## 6. 常见问题
+
+### git push 报 `Failed to connect to github.com port 443`
+
+这是 HTTPS 被墙了，确认远程地址用的是 SSH：
+
+```bash
+git remote -v
+# 应该显示 git@github.com:qcheng19/qcheng19.github.io.git
+# 如果是 https:// 开头，执行：
+git remote set-url origin git@github.com:qcheng19/qcheng19.github.io.git
+```
