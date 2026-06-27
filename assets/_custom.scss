@@ -1012,7 +1012,13 @@ html:root {
   .book-brand {
     margin-bottom: 1.25rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--gray-200);
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(
+      to right,
+      var(--color-accent-default),
+      var(--color-accent-important) 50%,
+      transparent 100%
+    ) 1;
 
     a {
       font-size: 1.15rem;
@@ -1020,6 +1026,50 @@ html:root {
       color: var(--body-font-color) !important;
       text-decoration: none;
       gap: 0.5rem;
+    }
+
+    // Brand inner layout
+    .book-brand-inner {
+      display: flex;
+      align-items: baseline;
+      gap: 0.15rem;
+      font-family: "Press Start 2P", "Courier New", monospace;
+    }
+
+    .book-brand-main {
+      font-size: 1.1rem;
+      color: var(--color-accent-default);
+      letter-spacing: 1px;
+    }
+
+    .book-brand-sub {
+      font-size: 0.55rem;
+      color: var(--gray-500);
+      font-family: var(--body-font-family);
+      letter-spacing: 0;
+    }
+
+    .book-brand-cursor {
+      font-size: 0.75rem;
+      color: var(--color-accent-default);
+      animation: brand-cursor-blink 1.2s step-end infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes brand-cursor-blink {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0; }
+    }
+
+    // Hover glow
+    a:hover {
+      .book-brand-main {
+        text-shadow: 0 0 8px var(--color-accent-default-tint);
+      }
+      .book-brand-cursor {
+        opacity: 0;
+        animation: none;
+      }
     }
   }
 
