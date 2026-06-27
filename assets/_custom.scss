@@ -161,18 +161,54 @@ html:root {
   user-select: none;
 }
 
-.hero-pixel-name {
+.hero-ink-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.hero-ink-welcome {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 0.7rem;
+  color: var(--gray-500);
+  letter-spacing: 6px;
+  text-transform: lowercase;
+  font-style: italic;
+}
+
+.hero-ink-name {
+  font-family: "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
   font-size: 2rem;
-  font-weight: 400;
-  color: var(--color-accent-default);
-  text-shadow:
-    2px 2px 0 var(--color-accent-default-tint),
-    4px 4px 0 rgba(0, 0, 0, 0.06);
-  letter-spacing: 4px;
-  line-height: 1.4;
-  image-rendering: pixelated;
-  // Slight Y skew for retro 3D feel
-  transform: skewY(-2deg);
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(
+    180deg,
+    var(--body-font-color) 0%,
+    var(--gray-500) 40%,
+    var(--gray-500) 60%,
+    var(--body-font-color) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.3;
+}
+
+.hero-ink-brush {
+  width: 120px;
+  height: 2px;
+  margin-top: 0.6rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gray-500) 20%,
+    var(--body-font-color) 50%,
+    var(--gray-500) 80%,
+    transparent
+  );
+  opacity: 0.4;
+  border-radius: 1px;
 }
 
 .hero-pixel-typewriter {
@@ -360,36 +396,87 @@ html:root {
 }
 
 .book-github-card-inner {
-  padding: 0.65rem 0.75rem;
+  padding: 0.75rem;
   border-radius: 10px;
-  background: var(--body-background);
+  background: var(--gray-100);
   border: 1px solid var(--gray-200);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: var(--color-accent-default);
+  }
 }
 
 .book-github-card-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.6rem;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .book-github-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   flex-shrink: 0;
-  border: 2px solid var(--gray-200);
+  border: 1.5px solid var(--gray-200);
+}
+
+.book-github-prompt {
+  color: var(--color-accent-success);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.book-github-name-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  min-width: 0;
 }
 
 .book-github-name {
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: var(--body-font-color);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-accent-default);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.book-github-bio {
+  font-size: 0.6rem;
+  color: var(--gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-github-bio-dir {
+  color: var(--color-accent-important);
+}
+
+.book-github-bio-cmd {
+  color: var(--gray-500);
+}
+
+.book-github-card-motto {
+  font-size: 0.68rem;
+  color: var(--color-accent-warning);
+  font-style: italic;
+  padding: 0.35rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid var(--color-accent-default);
+  background: var(--body-background);
+  border-radius: 0 6px 6px 0;
 }
 
 .book-github-card-stats {
   display: flex;
   gap: 0;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--gray-200);
 }
 
 .book-github-stat {
@@ -403,14 +490,15 @@ html:root {
 
 .book-github-stat-num {
   font-weight: 700;
-  font-size: 1rem;
-  color: var(--body-font-color);
+  font-size: 0.95rem;
+  color: var(--color-accent-default);
   line-height: 1.2;
 }
 
 .book-github-stat-label {
   font-size: var(--font-size-smallest);
   color: var(--gray-500);
+  font-family: var(--body-font-family);
 }
 
 // ---- Sidebar Tag Cloud Card ----
@@ -1031,8 +1119,8 @@ html:root {
     // Brand inner layout
     .book-brand-inner {
       display: flex;
-      align-items: baseline;
-      gap: 0.15rem;
+      align-items: center;
+      gap: 0.25rem;
       font-family: "Press Start 2P", "Courier New", monospace;
     }
 
@@ -1042,11 +1130,12 @@ html:root {
       letter-spacing: 1px;
     }
 
-    .book-brand-sub {
-      font-size: 0.55rem;
-      color: var(--gray-500);
-      font-family: var(--body-font-family);
-      letter-spacing: 0;
+    .book-brand-dino {
+      width: 34px;
+      height: 34px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 4px var(--color-accent-caution));
+      flex-shrink: 0;
     }
 
     .book-brand-cursor {
@@ -1065,6 +1154,9 @@ html:root {
     a:hover {
       .book-brand-main {
         text-shadow: 0 0 8px var(--color-accent-default-tint);
+      }
+      .book-brand-dino {
+        filter: drop-shadow(0 0 6px var(--color-accent-caution));
       }
       .book-brand-cursor {
         opacity: 0;

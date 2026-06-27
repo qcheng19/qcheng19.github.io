@@ -5,11 +5,16 @@
         class="book-github-avatar"
         src="https://github.com/qcheng19.png"
         alt="avatar"
-        width="40" height="40"
+        width="36" height="36"
         loading="lazy"
       />
-      <span class="book-github-name">qcheng19</span>
+      <div class="book-github-prompt">$</div>
+      <div class="book-github-name-wrap">
+        <span class="book-github-name">@qcheng19</span>
+        <span class="book-github-bio"><span class="book-github-bio-dir">~/blog</span> $ <span class="book-github-bio-cmd">cat motto.txt</span></span>
+      </div>
     </div>
+    <div class="book-github-card-motto">"Talk is cheap. Show me the code."</div>
     <div class="book-github-card-stats">
       {{- $posts := where .Site.RegularPages "Section" "posts" -}}
       {{- $total := len $posts -}}

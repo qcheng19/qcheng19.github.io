@@ -4,7 +4,11 @@ type: "docs"
 ---
 
 <div class="hero-pixel">
-  <div class="hero-pixel-name">qcheng19</div>
+  <div class="hero-ink-sign">
+    <span class="hero-ink-welcome">welcome to</span>
+    <span class="hero-ink-name">qcheng's Blog</span>
+    <span class="hero-ink-brush"></span>
+  </div>
   <div class="hero-pixel-typewriter">
     <span class="hero-pixel-text"></span><span class="hero-pixel-cursor">█</span>
   </div>
