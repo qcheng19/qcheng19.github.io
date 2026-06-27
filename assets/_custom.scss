@@ -681,6 +681,10 @@ html:root {
   color: var(--gray-500);
   line-height: 1.7;
   font-size: 0.925rem;
+}
+
+// Only clamp card summaries, NOT full article page
+.book-post-container .book-post-content {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
