@@ -2,80 +2,10 @@
    Hugo Book Custom Styles — Personal Blog
    ======================================== */
 
-// ---- Dark Mode Force Overrides ----
-// AnuPpuccin / Catppuccin Macchiato (dark) + sky accent
-html[data-theme="dark"] {
-  --body-background: #24273a;      // Catppuccin Macchiato base
-  --body-background-tint: none;
-  --body-font-color: #cad3f5;      // Macchiato text
-
-  --color-link: #91d7e3;           // Macchiato sky (user's accent)
-  --color-visited-link: #8aadf4;   // Macchiato blue
-
-  --icon-filter: brightness(0) invert(1);
-
-  --gray-100: #1e2030;             // mantle (sidebar, code bg)
-  --gray-200: #363a4f;             // surface0 (borders)
-  --gray-500: #8087a2;            // overlay1 (muted text)
-
-  --color-accent-default: #91d7e3;
-  --color-accent-default-tint: rgba(145, 215, 227, 0.12);
-  --color-accent-note: #8aadf4;       // blue
-  --color-accent-note-tint: rgba(138, 173, 244, 0.12);
-  --color-accent-tip: #a6da95;        // green
-  --color-accent-tip-tint: rgba(166, 218, 149, 0.12);
-  --color-accent-important: #c6a0f6;  // mauve
-  --color-accent-important-tint: rgba(198, 160, 246, 0.12);
-  --color-accent-warning: #eed49f;    // yellow
-  --color-accent-warning-tint: rgba(238, 212, 159, 0.12);
-  --color-accent-caution: #ed8796;    // red
-  --color-accent-caution-tint: rgba(237, 135, 150, 0.12);
-
-  // Fallback for {{< hint >}} shortcodes
-  --color-accent-info: #8aadf4;
-  --color-accent-info-tint: rgba(138, 173, 244, 0.12);
-  --color-accent-success: #a6da95;
-  --color-accent-success-tint: rgba(166, 218, 149, 0.12);
-  --color-accent-danger: #ed8796;
-  --color-accent-danger-tint: rgba(237, 135, 150, 0.12);
-}
-
-// AnuPpuccin / Catppuccin Latte (light) + blue accent
-html[data-theme="light"] {
-  --body-background: #eff1f5;      // Catppuccin Latte base
-  --body-background-tint: none;
-  --body-font-color: #4c4f69;      // Latte text
-
-  --color-link: #1e66f5;           // Latte blue (user's accent)
-  --color-visited-link: #8839ef;   // Latte mauve
-
-  --icon-filter: none;
-
-  --gray-100: #e6e9ef;             // mantle (sidebar)
-  --gray-200: #ccd0da;             // surface0 (borders)
-  --gray-500: #9ca0b0;            // overlay0 (muted text)
-
-  --color-accent-default: #1e66f5;
-  --color-accent-default-tint: rgba(30, 102, 245, 0.08);
-  --color-accent-note: #04a5e5;       // sky
-  --color-accent-note-tint: rgba(4, 165, 229, 0.08);
-  --color-accent-tip: #40a02b;        // green
-  --color-accent-tip-tint: rgba(64, 160, 43, 0.08);
-  --color-accent-important: #8839ef;  // mauve
-  --color-accent-important-tint: rgba(136, 57, 239, 0.08);
-  --color-accent-warning: #df8e1d;    // yellow
-  --color-accent-warning-tint: rgba(223, 142, 29, 0.08);
-  --color-accent-caution: #d20f39;    // red
-  --color-accent-caution-tint: rgba(210, 15, 57, 0.08);
-
-  // Fallback for {{< hint >}} shortcodes
-  --color-accent-info: #04a5e5;
-  --color-accent-info-tint: rgba(4, 165, 229, 0.08);
-  --color-accent-success: #40a02b;
-  --color-accent-success-tint: rgba(64, 160, 43, 0.08);
-  --color-accent-danger: #d20f39;
-  --color-accent-danger-tint: rgba(210, 15, 57, 0.08);
-}
+// Light/dark Catppuccin theme is defined below via `html:root` +
+// `@media (prefers-color-scheme: dark)`. The old `html[data-theme=...]`
+// blocks were dead code — this theme never sets a `data-theme` attribute
+// on <html>, it only uses `prefers-color-scheme`.
 
 // Override the default auto theme (uses `html:root` for higher specificity
 // than the theme's `:root`, which comes later in source order)
@@ -721,7 +651,8 @@ html:root {
 
   img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     display: block;
     transition: transform 0.4s ease;
   }
@@ -760,6 +691,17 @@ html:root {
     .book-post:hover & {
       transform: scale(1.05);
     }
+  }
+}
+
+// Mobile: the theme stacks cards with `flex-direction: column-reverse`,
+// which would otherwise leave the thumbnail as a tiny 120×80 box floating
+// top-left. Make it full-width so it reads as a card image.
+@media screen and (max-width: $mobile-breakpoint) {
+  .book-post-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
 
@@ -1082,15 +1024,14 @@ html:root {
   background: var(--gray-100);
 
   .book-menu-content {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: $menu-width;
-    height: 100vh;
-    overflow-y: auto;
     padding: 1.25rem;
     display: flex;
     flex-direction: column;
+    // Positioning comes from the theme's `@include fixed` (position:fixed;
+    // top:0; bottom:0; left:auto). Do NOT set `left` here — the mobile
+    // drawer relies on `left:auto` + `transform: translateX()` to slide
+    // in/out, and a hard `left:0` misplaces it by $menu-width.
     // Fixed element needs its own background — it's out of flow
     // and won't inherit from .book-menu
     background: var(--gray-100);

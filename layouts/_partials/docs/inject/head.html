@@ -3,3 +3,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 {{- $customJS := resources.Get "custom.js" | resources.Minify | resources.Fingerprint }}
 <script defer src="{{ $customJS.RelPermalink }}"></script>
+
+{{- /* KaTeX: only on pages whose content uses `$...$` math (e.g. 滑动窗口) */ -}}
+{{- if in .RawContent "$" -}}
+<link rel="stylesheet" href="{{ "katex/katex.min.css" | relURL }}" />
+<script defer src="{{ "katex/katex.min.js" | relURL }}"></script>
+{{- with resources.Get "katex.json" | minify -}}
+<script defer src="{{ "katex/auto-render.min.js" | relURL }}" onload="renderMathInElement(document.body, {{ .Content | safeJS }});"></script>
+{{- end -}}
+{{- end -}}
